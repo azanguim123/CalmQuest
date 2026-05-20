@@ -1,0 +1,75 @@
+"""
+CalmQuest – AI Bridge Server
+Exposes emotion detection as a REST API consumed by Unity.
+
+Endpoints:
+  GET  /health          → server status
+  POST /detect          → analyze a base64 image
+  GET  /detect/live     → capture from webcam & analyze
+"""
+
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import base64
+import numpy as np
+import cv2
+
+from detector import EmotionDetector
+
+app = Flask(__name__)
+CORS(app)
+
+detector = EmotionDetector(use_mtcnn=False)
+detector.start_camera()
+
+
+# ── Routes ──────────────────────────────────────────────────────────────
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok", "service": "CalmQuest AI Bridge"})
+
+
+@app.route("/detect/live", methods=["GET"])
+def detect_live():
+    """Capture a frame from webcam and return emotion result."""
+    result = detector.detect_from_camera()
+    if result is None:
+        return jsonify({"error": "Camera unavailable"}), 503
+
+    return jsonify({
+        "dominant_emotion": result.dominant_emotion,
+        "stress_level":     result.stress_level,
+        "emotions":         result.emotions,
+        "face_detected":    result.face_detected,
+    })
+
+
+@app.route("/detect", methods=["POST"])
+def detect_image():
+    """Accept a base64-encoded image (from Unity WebCamTexture) and analyze it."""
+    data = request.get_json()
+    if not data or "image" not in data:
+        return jsonify({"error": "Missing 'image' field"}), 400
+
+    try:
+        img_bytes = base64.b64decode(data["image"])
+        img_array = np.frombuffer(img_bytes, dtype=np.uint8)
+        frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+    except Exception as e:
+        return jsonify({"error": f"Invalid image data: {str(e)}"}), 400
+
+    result = detector.detect_from_frame(frame)
+    return jsonify({
+        "dominant_emotion": result.dominant_emotion,
+        "stress_level":     result.stress_level,
+        "emotions":         result.emotions,
+        "face_detected":    result.face_detected,
+    })
+
+
+# ── Entry point ──────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    print("🌿 CalmQuest AI Bridge running on http://localhost:5000")
+    app.run(host="0.0.0.0", port=5000, debug=False)
