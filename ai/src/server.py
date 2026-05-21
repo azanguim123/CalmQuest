@@ -19,7 +19,7 @@ from detector import EmotionDetector
 app = Flask(__name__)
 CORS(app)
 
-detector = EmotionDetector(use_mtcnn=False)
+detector = EmotionDetector()
 detector.start_camera()
 
 
