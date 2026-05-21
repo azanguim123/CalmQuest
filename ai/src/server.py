@@ -1,11 +1,6 @@
 """
-CalmQuest – AI Bridge Server
-Exposes emotion detection as a REST API consumed by Unity.
-
-Endpoints:
-  GET  /health          → server status
-  POST /detect          → analyze a base64 image
-  GET  /detect/live     → capture from webcam & analyze
+CalmQuest – AI Bridge Server v2
+Now returns confidence + stability fields.
 """
 
 from flask import Flask, jsonify, request
@@ -19,20 +14,17 @@ from detector import EmotionDetector
 app = Flask(__name__)
 CORS(app)
 
-detector = EmotionDetector()
+detector = EmotionDetector(smoothing_window=5, min_confidence=0.40)
 detector.start_camera()
 
 
-# ── Routes ──────────────────────────────────────────────────────────────
-
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "service": "CalmQuest AI Bridge"})
+    return jsonify({"status": "ok", "service": "CalmQuest AI Bridge v2"})
 
 
 @app.route("/detect/live", methods=["GET"])
 def detect_live():
-    """Capture a frame from webcam and return emotion result."""
     result = detector.detect_from_camera()
     if result is None:
         return jsonify({"error": "Camera unavailable"}), 503
@@ -42,12 +34,13 @@ def detect_live():
         "stress_level":     result.stress_level,
         "emotions":         result.emotions,
         "face_detected":    result.face_detected,
+        "confidence":       result.confidence,
+        "stability":        result.stability,
     })
 
 
 @app.route("/detect", methods=["POST"])
 def detect_image():
-    """Accept a base64-encoded image (from Unity WebCamTexture) and analyze it."""
     data = request.get_json()
     if not data or "image" not in data:
         return jsonify({"error": "Missing 'image' field"}), 400
@@ -65,11 +58,11 @@ def detect_image():
         "stress_level":     result.stress_level,
         "emotions":         result.emotions,
         "face_detected":    result.face_detected,
+        "confidence":       result.confidence,
+        "stability":        result.stability,
     })
 
 
-# ── Entry point ──────────────────────────────────────────────────────────
-
 if __name__ == "__main__":
-    print("🌿 CalmQuest AI Bridge running on http://localhost:5000")
+    print("🌿 CalmQuest AI Bridge v2 running on http://localhost:5000")
     app.run(host="0.0.0.0", port=5000, debug=False)
