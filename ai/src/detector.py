@@ -28,7 +28,7 @@ class EmotionResult:
     stress_level: float          # 0.0 (calm) → 1.0 (stressed)
     emotions: dict               # full probability map
     face_detected: bool
- 
+    
  
 class EmotionDetector:
     def __init__(self):
