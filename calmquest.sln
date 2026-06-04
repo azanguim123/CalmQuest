@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unity", "unity", "{74BD08A2-F64E-4683-A809-A6F48808E6A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assembly-CSharp-Editor", "unity\CalmQuest\Assembly-CSharp-Editor.csproj", "{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assembly-CSharp", "unity\CalmQuest\Assembly-CSharp.csproj", "{3002ED85-E23E-4020-8774-D66181834436}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3002ED85-E23E-4020-8774-D66181834436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3002ED85-E23E-4020-8774-D66181834436}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3002ED85-E23E-4020-8774-D66181834436}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3002ED85-E23E-4020-8774-D66181834436}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB2883A5-E42F-4A17-AD48-8F6DF06B03AA} = {74BD08A2-F64E-4683-A809-A6F48808E6A6}
+		{3002ED85-E23E-4020-8774-D66181834436} = {74BD08A2-F64E-4683-A809-A6F48808E6A6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {534E7CCA-81CC-4B88-8B4B-B92A105CCD7C}
+	EndGlobalSection
+EndGlobal
