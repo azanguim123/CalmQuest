@@ -82,7 +82,7 @@ namespace CalmQuest.MiniGames.StormCalmer
             breathingGuide.StartGuide(BreathingTechnique.BoxBreathing);
             ui.ShowGame();
 
-            Debug.Log("[StormCalmer] Game started 🌪️");
+            Debug.Log("[StormCalmer] Game started");
         }
 
         private void TriggerWin()
@@ -94,7 +94,7 @@ namespace CalmQuest.MiniGames.StormCalmer
             breathingGuide.StopGuide();
             ui.ShowWin(_score);
 
-            Debug.Log($"[StormCalmer] Player won! Score: {_score} 🌤️");
+            Debug.Log($"[StormCalmer] Player won! Score: {_score}");
         }
 
         private void TriggerTimeUp()
@@ -121,11 +121,11 @@ namespace CalmQuest.MiniGames.StormCalmer
 
             // Give feedback based on trend
             if (_currentStress <= calmThreshold)
-                ui.ShowFeedback("Breathe... 🌿");
+                ui.ShowFeedback("Breathe...");
             else if (_currentStress <= 0.5f)
-                ui.ShowFeedback("Keep going... 🌬️");
+                ui.ShowFeedback("Keep going...");
             else
-                ui.ShowFeedback("Follow the guide 🔵");
+                ui.ShowFeedback("Follow the guide");
         }
 
         // ── Scoring ───────────────────────────────────────────────────────

@@ -64,5 +64,5 @@ def detect_image():
 
 
 if __name__ == "__main__":
-    print("🌿 CalmQuest AI Bridge v2 running on http://localhost:5000")
+    print("CalmQuest AI Bridge v2 running on http://localhost:5000")
     app.run(host="0.0.0.0", port=5000, debug=False)
