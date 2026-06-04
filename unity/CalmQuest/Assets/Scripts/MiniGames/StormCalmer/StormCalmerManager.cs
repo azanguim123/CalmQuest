@@ -82,7 +82,7 @@ namespace CalmQuest.MiniGames.StormCalmer
             breathingGuide.StartGuide(BreathingTechnique.BoxBreathing);
             ui.ShowGame();
 
-            Debug.Log("[StormCalmer] Game started 🌪️");
+            Debug.Log("[StormCalmer] Game started");
         }
 
         private void TriggerWin()
@@ -94,7 +94,7 @@ namespace CalmQuest.MiniGames.StormCalmer
             breathingGuide.StopGuide();
             ui.ShowWin(_score);
 
-            Debug.Log($"[StormCalmer] Player won! Score: {_score} 🌤️");
+            Debug.Log($"[StormCalmer] Player won! Score: {_score}");
         }
 
         private void TriggerTimeUp()

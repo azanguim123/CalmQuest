@@ -4,10 +4,6 @@ using TMPro;
 
 namespace CalmQuest.MiniGames.StormCalmer
 {
-    /// <summary>
-    /// Manages all UI elements for Storm Calmer:
-    /// timer, stress bar, calm streak, feedback text, win/lose screens.
-    /// </summary>
     public class StormCalmerUI : MonoBehaviour
     {
         [Header("HUD")]
@@ -35,33 +31,29 @@ namespace CalmQuest.MiniGames.StormCalmer
         private float _feedbackTimer;
         private const float FeedbackDuration = 2.0f;
 
-        // ── Lifecycle ────────────────────────────────────────────────────
         private void Update()
         {
-            // Auto-hide feedback
             if (_feedbackTimer > 0f)
             {
                 _feedbackTimer -= Time.deltaTime;
-                if (_feedbackTimer <= 0f)
+                if (_feedbackTimer <= 0f && feedbackText != null)
                     feedbackText.text = "";
             }
         }
 
-        // ── Public API ───────────────────────────────────────────────────
         public void ShowGame()
         {
-            gameScreen.SetActive(true);
-            winScreen.SetActive(false);
-            timeUpScreen.SetActive(false);
+            if (gameScreen  != null) gameScreen.SetActive(true);
+            if (winScreen   != null) winScreen.SetActive(false);
+            if (timeUpScreen!= null) timeUpScreen.SetActive(false);
         }
 
         public void UpdateTimer(float timeRemaining)
         {
+            if (timerText == null) return;
             int minutes = Mathf.FloorToInt(timeRemaining / 60f);
             int seconds = Mathf.FloorToInt(timeRemaining % 60f);
-            timerText.text = $"{minutes:00}:{seconds:00}";
-
-            // Flash red when under 15s
+            timerText.text  = $"{minutes:00}:{seconds:00}";
             timerText.color = timeRemaining < 15f
                 ? Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time * 2f, 1f))
                 : Color.white;
@@ -69,9 +61,7 @@ namespace CalmQuest.MiniGames.StormCalmer
 
         public void UpdateStress(float stress)
         {
-            if (stressBar != null)
-                stressBar.value = stress;
-
+            if (stressBar     != null) stressBar.value = stress;
             if (stressBarFill != null)
                 stressBarFill.color = Color.Lerp(stressColorLow, stressColorHigh, stress);
         }
@@ -84,22 +74,23 @@ namespace CalmQuest.MiniGames.StormCalmer
 
         public void ShowFeedback(string message)
         {
+            if (feedbackText == null) return;
             feedbackText.text = message;
             _feedbackTimer    = FeedbackDuration;
         }
 
         public void ShowWin(int score)
         {
-            gameScreen.SetActive(false);
-            winScreen.SetActive(true);
-            winScoreText.text = $"Score: {score}";
+            if (gameScreen  != null) gameScreen.SetActive(false);
+            if (winScreen   != null) winScreen.SetActive(true);
+            if (winScoreText!= null) winScoreText.text = $"Score: {score}";
         }
 
         public void ShowTimeUp(int score)
         {
-            gameScreen.SetActive(false);
-            timeUpScreen.SetActive(true);
-            timeUpScoreText.text = $"Score: {score}";
+            if (gameScreen      != null) gameScreen.SetActive(false);
+            if (timeUpScreen    != null) timeUpScreen.SetActive(true);
+            if (timeUpScoreText != null) timeUpScoreText.text = $"Score: {score}";
         }
     }
 }
