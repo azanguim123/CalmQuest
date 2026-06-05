@@ -17,9 +17,25 @@
 
 ## 📖 Overview
 
-**CalmQuest** is a serious game that uses AI-powered facial emotion recognition to detect a player's emotional state in real-time and adapt gameplay accordingly. Players calm a virtual world — and their virtual companion — by calming themselves through breathing and mindfulness exercises.
+**CalmQuest** is a serious game that uses AI-powered facial emotion recognition to detect a
+user's stress level and recommend personalized mini-games to improve emotional well-being.
 
-The core mechanic is simple but powerful: **your breath controls the world.**
+**Core idea:** *Control your breath to control the world.*
+
+---
+
+## 👥 Project Context & My Contribution
+
+CalmQuest was developed as a **team project** during my Master's studies in Computer Science
+at TU Clausthal.
+
+**My personal contribution:**
+- 🧠 **AI module** — facial emotion recognition and stress-level analysis, including the
+  Python ↔ Unity bridge that feeds the detected emotional state into the game.
+- 🌪️ **"Storm Calmer" mini-game** — design and implementation of one of the three core mini-games.
+
+The other mini-games (Sky Balance, Breath Harmony) and additional parts of the application
+were developed by other team members.
 
 ---
 
